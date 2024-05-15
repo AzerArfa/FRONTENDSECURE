@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <div class="container">
+    <div class="left-section">
+      <img src="https://media-animation.be/local/cache-vignettes/L960xH640/appeloffre-8e211.jpg" alt="Doctor Illustration">
+    </div>
+    <div class="right-section">
+      <div class="login-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png" alt="Doctor Icon" class="icon">
+        <h1>WELCOME</h1>
+        <form class="login-form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+          <div class="input-group">
+            <input type="text" placeholder="CIN" [(ngModel)]="newUser.cin" name="cin">
+            <input type="email" placeholder="Email" [(ngModel)]="newUser.email" name="email">
+            <input type="text" placeholder="Username" [(ngModel)]="newUser.name" name="username">
+            <input type="date" placeholder="Date de Naissance" [(ngModel)]="newUser.datenais" name="datenaissance">
+            <input type="text" placeholder="Lieu de Naissance" [(ngModel)]="newUser.lieunais" name="lieunaissance">
+            <input type="password" placeholder="Password" [(ngModel)]="newUser.password" name="password">
+            <input type="password" placeholder="Please confirm your password" name="Confirmingpassword">
+            <input type="file" (change)="onFileSelected($event)" name="img">
+          </div>
+          <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+          </div>
+          <div [hidden]="captcha">
+            <re-captcha (resolved)="resolved($event!)" siteKey="6LcL08UpAAAAACqIwpE_30W9BzvlXvlc0QJbyX89"></re-captcha>
+          </div>
+          <div [hidden]="!captcha">
+            <button type="submit" class="btn btn-success">Sign Up</button>
+          </div>
+          <p class="signup">Already have an account? <a href="/login">Sign In</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

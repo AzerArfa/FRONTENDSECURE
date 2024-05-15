@@ -1,0 +1,72 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 95%;
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.offer-container, .entreprise-info {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.image-section {
+    margin-top: 20px;
+}
+
+.offer-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.offer-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.details-section {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.offer-description, .location-info {
+    margin-bottom: 10px;
+}
+
+.location-info {
+    display: block;
+    color: #306090;
+    font-weight: bold;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.info-table th, .info-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}

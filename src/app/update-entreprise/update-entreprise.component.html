@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Entreprise</title>
+</head>
+<body>
+  <div class="full-screen-container">
+    <div class="form-container">
+      <h2>Update Entreprise</h2>
+      <form (ngSubmit)="updateEntreprise()">
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.name" name="name" class="form-control" placeholder="Nom">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.adresse" name="adresse" class="form-control" placeholder="Addresse">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.secteuractivite" name="secteuractivite" class="form-control" placeholder="Activity Sector">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.matricule" name="matricule" class="form-control" placeholder="matricule">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.ville" name="ville" class="form-control" placeholder="City">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.siegesociale" name="siegesociale" class="form-control" placeholder="Head Office">
+        </div>
+        <div class="input-box">
+          <input type="text" [(ngModel)]="currentEntreprise.codeTVA" name="codeTVA" class="form-control" placeholder="TAX Code">
+        </div>
+        <div class="input-box">
+          <input type="file" (change)="onFileSelected($event)" name="logo">
+        </div>
+        <button type="submit"  class="btn">Update Entreprise</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

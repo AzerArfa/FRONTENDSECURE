@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body, html {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f8ff;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  background: #ffffff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e0f7fa;
+}
+
+.left-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.login-container {
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-container .icon {
+  width: 80px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.login-container h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  max-height: 30vh; /* Adjust this value as needed */
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 1rem; /* Add margin to separate from the button */
+}
+
+/* Custom scroll bar */
+.input-group::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as needed */
+}
+
+.input-group::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Scrollbar track color */
+  border-radius: 10px;
+}
+
+.input-group::-webkit-scrollbar-thumb {
+  background: #888; /* Scrollbar thumb color */
+  border-radius: 10px;
+}
+
+.input-group::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Scrollbar thumb hover color */
+}
+
+.login-form input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-form .forgot-password {
+  text-align: right;
+}
+
+.login-form .forgot-password a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.login-form .forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.login-form button {
+  padding: 1rem;
+  border: none;
+  background: #26a69a;
+  color: #ffffff;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Ensure the button has the same width as the inputs */
+}
+
+.login-form button:hover {
+  background: #2bbbad;
+}
+
+.login-form .signup {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.login-form .signup a {
+  color: #26a69a;
+  text-decoration: none;
+}
+
+.login-form .signup a:hover {
+  text-decoration: underline;
+}

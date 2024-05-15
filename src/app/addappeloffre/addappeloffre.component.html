@@ -1,0 +1,37 @@
+<div class="full-screen-container">
+    <div class="form-container">
+      <h2>Créer un appel d'offre</h2>
+      <form (ngSubmit)="createAppelOffre()">
+        <div class="input-box">
+          <input type="text" placeholder="Title" [(ngModel)]="newAppelOffre.titre" name="titre" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Description" [(ngModel)]="newAppelOffre.description" name="description" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Localisation" [(ngModel)]="newAppelOffre.localisation" name="localisation" required>
+        </div>
+        <div class="input-box">
+          <input type="date" placeholder="Submission Deadline" [(ngModel)]="datelimitesoumissionFormatted" name="datelimitesoumission" required>
+        </div>
+        <!-- <div class="input-box">
+          <input type="file" (change)="onImageSelected($event)" name="img">
+        </div> -->
+
+        <div class="image-upload-container">
+            <label for="image-upload" class="image-upload-label">
+                <i class="upload-icon">📷</i>
+                Upload product images
+            </label>
+            <input type="file" (change)="onImageSelected($event)" name="img" id="image-upload" multiple hidden>
+        </div>
+
+
+        <div class="input-box">
+          <input type="file" (change)="onDocumentSelected($event)" name="document" accept="application/pdf">
+        </div>
+
+        <button type="submit" class="btn">Créer</button>
+      </form>
+    </div>
+  </div>

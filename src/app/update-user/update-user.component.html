@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifier un utilisateur</title>
+</head>
+<body>
+  <div class="full-screen-container">
+    <div class="form-container">
+      <h2>Modifier un utilisateur</h2>
+      <form (ngSubmit)="updateUser()">
+        <div class="input-box">
+          <input type="text" placeholder="Email" [(ngModel)]="currentUser.email" name="email" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Username" [(ngModel)]="currentUser.name" name="username" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="CIN" [(ngModel)]="currentUser.cin" name="cin" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="date" placeholder="Date de Naissance" [(ngModel)]="currentUser.datenais" name="datenais" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Lieu de Naissance" [(ngModel)]="currentUser.lieunais" name="lieunais" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="file" (change)="onFileSelected($event)" name="img" class="form-control">
+        </div>
+        <button type="submit" class="btn">Modifier</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
