@@ -27,7 +27,7 @@ export class AppeloffresadminComponent implements OnInit {
   supprimerAppelOffre(id: string): void {
     let conf = confirm("Etes-vous sur ?");
     if (conf) {
-      this.appeloffreService.deleteAppelOffre(id).subscribe(() => {
+      this.appeloffreService.deleteAppelOffreAdmin(id).subscribe(() => {
         console.log('Appel doffre supprimé');
         window.location.reload(); // Reload the page after successful deletion
       }, (error) => {

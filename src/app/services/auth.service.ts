@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { authApiURL } from '../config';
 import { User } from '../model/user.model';
 
@@ -21,6 +21,11 @@ export class AuthService {
   constructor(private http: HttpClient) {
     this.checkLoginStatus(); // Check login status on initialization
   }
+// Method to check if the logged user is an admin
+isAdmin(): boolean {
+  const userInfo = this.getUserInfo();
+  return userInfo && userInfo.roles && userInfo.roles.includes('ROLE_ADMIN');
+}
 
   login(user: any): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${authApiURL}/login`, user, { observe: 'response' }).pipe(
@@ -122,6 +127,11 @@ export class AuthService {
     }
     console.log('Checked login status, isloggedIn:', this.isloggedInState);
   }
+  getUserId(): Observable<string | null> {
+    return this.userInfo.pipe(
+        map(userInfo => userInfo?.userId || null)
+    );
+}
 
   private getUserInfoFromStorage(): any {
     return this.getUserInfo();

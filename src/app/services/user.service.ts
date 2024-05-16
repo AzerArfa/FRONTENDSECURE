@@ -108,4 +108,8 @@ updateUser(id: string, formData: FormData): Observable<any> {
   rechercherParNom(term: string): Observable<any> {
     return this.http.get(`${authApiURL}/users/${term}`);
   }
+
+  getentreprisesbyuserid(id:string): Observable<Entreprise[]>
+  {
+    return this.http.get<Entreprise[]>(`${authApiURL}/user/${id}/entreprises`);  }
 }

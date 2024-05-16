@@ -87,4 +87,19 @@ export class AppeloffreService {
   deleteOffre(id: string): Observable<any> {
     return this.http.delete<any>(`${userofferApiURL}/offre/${id}`, { headers: this.getAuthHeaders() });
   }
+  getOffresByuserid(id:string): Observable<Offre[]> {
+    return this.http.get<Offre[]>(`${userofferApiURL}/offres/user/${id}`, { headers: this.getAuthHeaders() });
+  }
+  getOffresByuseridadmin(id:string): Observable<Offre[]> {
+    return this.http.get<Offre[]>(`${offerApiURL}/offres/admin/${id}`, { headers: this.getAuthHeaders() });
+  }
+  getOffresByappeloffresidadmin(id:string): Observable<Offre[]> {
+    return this.http.get<Offre[]>(`${offerApiURL}/offres/appeloffre/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  downloadDocument(offreId: string): Observable<Blob> {
+    const headers = this.getAuthHeaders();
+    // Adjust the response type to 'blob' to handle the PDF binary data
+    return this.http.get(`${offerApiURL}/offres/download/${offreId}`, { headers: headers, responseType: 'blob' });
+  }
 }

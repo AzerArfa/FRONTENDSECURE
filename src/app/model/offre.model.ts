@@ -6,5 +6,6 @@ export class Offre {
     entrepriseid!: string;               // ID of the company related to the offer
     documentdeproposition!: string;      // Proposal document, assumed to be a base64 encoded string
     datededepot!: Date;   
-    appeloffreId!: string;                // Date when the offer was deposited/submitted
+    appeloffreId!: string;      
+    userid!: string;              // Date when the offer was deposited/submitted
 }

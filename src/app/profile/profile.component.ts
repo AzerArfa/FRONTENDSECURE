@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.activatedRoute.snapshot.params['id'];
     this.loadCurrentUser(userId);
+    
   }
 
   loadCurrentUser(userId: string): void {

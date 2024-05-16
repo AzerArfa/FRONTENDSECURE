@@ -26,6 +26,8 @@ import { AddappeloffreComponent } from './addappeloffre/addappeloffre.component'
 import { DetailsappeloffreComponent } from './detailsappeloffre/detailsappeloffre.component';
 import { AppeloffresadminComponent } from './appeloffresadmin/appeloffresadmin.component';
 import { UpdateappeloffreComponent } from './updateappeloffre/updateappeloffre.component';
+import { AddoffreComponent } from './addoffre/addoffre.component';
+import { DetailsappeloffreadminComponent } from './detailsappeloffreadmin/detailsappeloffreadmin.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { UpdateappeloffreComponent } from './updateappeloffre/updateappeloffre.c
     AddappeloffreComponent,
     DetailsappeloffreComponent,
     AppeloffresadminComponent,
-    UpdateappeloffreComponent
+    UpdateappeloffreComponent,
+    AddoffreComponent,
+    DetailsappeloffreadminComponent
     
   ],
   imports: [

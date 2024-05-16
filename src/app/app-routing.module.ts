@@ -15,10 +15,14 @@ import { AddappeloffreComponent } from './addappeloffre/addappeloffre.component'
 import { DetailsappeloffreComponent } from './detailsappeloffre/detailsappeloffre.component';
 import { AppeloffresadminComponent } from './appeloffresadmin/appeloffresadmin.component';
 import { UpdateappeloffreComponent } from './updateappeloffre/updateappeloffre.component';
+import { AddoffreComponent } from './addoffre/addoffre.component';
+import { DetailsappeloffreadminComponent } from './detailsappeloffreadmin/detailsappeloffreadmin.component';
 
 const routes: Routes = [
+  {path:"addOffre/:id",component:AddoffreComponent},
   {path:"addAppelOffre/:id",component:AddappeloffreComponent},
   {path:"detailsAppelOffre/:id",component:DetailsappeloffreComponent},
+  {path:"detailsAppelOffreAdmin/:id",component:DetailsappeloffreadminComponent},
   {path:"appeloffresadmin/:id",component:AppeloffresadminComponent},
   {path:"home", component:HomeComponent},
   {path:"about", component:AboutComponent},
