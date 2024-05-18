@@ -5,6 +5,8 @@ import { User } from '../model/user.model';
 import { AuthService } from './auth.service';
 import { authApiURL } from '../config';
 import { Entreprise } from '../model/entreprise.model';
+import { DemandeAjoutEntreprise } from '../model/demandeajoutentreprise.model';
+import { DemandeRejoindreEntreprise } from '../model/demanderejoindreentreprise.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -112,4 +114,37 @@ updateUser(id: string, formData: FormData): Observable<any> {
   getentreprisesbyuserid(id:string): Observable<Entreprise[]>
   {
     return this.http.get<Entreprise[]>(`${authApiURL}/user/${id}/entreprises`);  }
+
+    requestToAddEntreprise(userId: string, formData: FormData): Observable<any> {
+      const url = `${authApiURL}/user/${userId}/request-entreprise`;
+      return this.http.post<any>(url, formData);
+    }
+    requestToJoinEntreprise(userId: string, formData: FormData): Observable<string> {
+      const url = `${authApiURL}/user/${userId}/join-request`;
+      return this.http.post<string>(url, formData, { responseType: 'text' as 'json' });
+  }
+getAllCreationRequests(): Observable<DemandeAjoutEntreprise[]> {
+   return this.http.get<DemandeAjoutEntreprise[]>(`${authApiURL}/creation-requests`);
+   }
+   getAllJoinRequests(userId: string): Observable<DemandeRejoindreEntreprise[]> {
+    return this.http.get<DemandeRejoindreEntreprise[]>(`${authApiURL}/join-requests?userId=${userId}`);
+}
+   approveJoinRequest(requestId: string): Observable<any> {
+    return this.http.post(`${authApiURL}/approve-join-request/${requestId}`, {}, { responseType: 'text' });
+}
+
+rejectJoinRequest(requestId: string): Observable<any> {
+    return this.http.post(`${authApiURL}/reject-join-request/${requestId}`, {}, { responseType: 'text' });
+}
+
+  approveCreationRequest(requestId: string, userId: string): Observable<any> {
+    return this.http.post(`${authApiURL}/approve-request/${userId}/${requestId}`, {});
+}
+
+rejectCreationRequest(requestId: string): Observable<any> {
+    return this.http.post(`${authApiURL}/reject-request/${requestId}`, {});
+}
+
+
+
 }

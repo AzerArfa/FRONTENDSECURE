@@ -28,6 +28,10 @@ import { AppeloffresadminComponent } from './appeloffresadmin/appeloffresadmin.c
 import { UpdateappeloffreComponent } from './updateappeloffre/updateappeloffre.component';
 import { AddoffreComponent } from './addoffre/addoffre.component';
 import { DetailsappeloffreadminComponent } from './detailsappeloffreadmin/detailsappeloffreadmin.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ActionentrepriseComponent } from './actionentreprise/actionentreprise.component';
+import { DemandecreationentrepriseComponent } from './demandecreationentreprise/demandecreationentreprise.component';
+import { DemanderejointentrepriseComponent } from './demanderejointentreprise/demanderejointentreprise.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { DetailsappeloffreadminComponent } from './detailsappeloffreadmin/detail
     AppeloffresadminComponent,
     UpdateappeloffreComponent,
     AddoffreComponent,
-    DetailsappeloffreadminComponent
+    DetailsappeloffreadminComponent,
+    ForbiddenComponent,
+    ActionentrepriseComponent,
+    DemandecreationentrepriseComponent,
+    DemanderejointentrepriseComponent
     
   ],
   imports: [

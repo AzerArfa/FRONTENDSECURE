@@ -17,7 +17,7 @@
           </div>
 
         <!-- Entreprise Selection Dropdown for Admins -->
-        <div class="input-box" *ngIf="isAdmin">
+        <div class="input-box" *ngIf="entreprises">
           <label for="entreprise">Choisir une entreprise:</label>
           <select id="entreprise" [(ngModel)]="newOffre.entrepriseid" name="entreprise">
             <option value="">Sélectionner une entreprise</option>

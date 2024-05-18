@@ -18,7 +18,7 @@ export class LoginComponent {
     this.authService.login(this.user).subscribe(
       response => {
         console.log('Login successful:', response); // Log the successful login response
-        this.router.navigate(['/users']); // Redirect to the users page after login
+        this.router.navigate(['/actionentreprise']); // Redirect to the users page after login
       },
       error => {
         console.log('Login error:', error); // Log any login error

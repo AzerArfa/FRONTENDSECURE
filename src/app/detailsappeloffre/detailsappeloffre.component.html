@@ -15,6 +15,7 @@
             <div class="details-section">
                 <p class="offer-description">{{currentAppelOffre.description}}</p>
                 <span class="location-info">{{currentAppelOffre.localisation}}</span>
+                <a (click)="downloadDocument(currentAppelOffre.id)" style="color:blue">Télecharger</a>
             </div>
         </div>
         <div class="entreprise-info">

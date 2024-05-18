@@ -1,135 +1,182 @@
+
 <div class="container">
-    <div class="main-body">
-      <div class="row gutters-sm">
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex flex-column align-items-center text-center">
-                <img [src]="currentUser.img ? 'data:image/png;base64,' + currentUser.img : 'https://bootdey.com/img/Content/avatar/avatar7.png'" alt="User" class="rounded-circle" width="150">
-                <div class="mt-3">
-                  <h4>{{ currentUser.name }}</h4>
-                  <p class="text-secondary mb-1">User</p>
-                </div>
+  <div class="main-body">
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img [src]="currentUser.img ? 'data:image/png;base64,' + currentUser.img : 'https://bootdey.com/img/Content/avatar/avatar7.png'" alt="User" class="rounded-circle" width="150">
+              <div class="mt-3">
+                <h4>{{ currentUser.name }}</h4>
+                <p class="text-secondary mb-1"></p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Nom</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ currentUser.name }}
-                </div>
+
+        <div class="card mb-3" *ngIf="isAdmin">
+          <div class="card-body">
+              <h6 class="d-flex align-items-center mb-3">Notifications</h6>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Notification Message</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let request of joinRequests">
+                        <td>{{request.userName}} veux rejoindre votre entreprise</td>
+                        <td>
+                            <button class="btn btn-success" (click)="approveJoin(request.id)"><i class="fa fa-check"></i></button>
+                            <button class="btn btn-danger" (click)="rejectJoin(request.id)"><i class="fa fa-times"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+      <div class="card mb-3" *ngIf="isSuperAdmin">
+        <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3">Notifications</h6>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Notification Message</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let request of creationRequests">
+                      <td>Demande de création de : {{request.nom}} ({{request.matricule}})</td>
+                      <td>
+                          <button class="btn btn-success" (click)="approveCreation(request.id,request.userId)"><i class="fa fa-check"></i></button>
+                          <button class="btn btn-danger" (click)="rejectCreation(request.id)"><i class="fa fa-times"></i></button>
+                      </td>
+                  </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Nom</h6>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Email</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ currentUser.email }}
-                </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.name }}
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">CIN</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ currentUser.cin }}
-                </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Date de naissance</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ formatDate(currentUser.datenais) }}
-                </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.email }}
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <h6 class="mb-0">Lieu de naissance</h6>
-                </div>
-                <div class="col-sm-9 text-secondary">
-                  {{ currentUser.lieunais }}
-                </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">CIN</h6>
               </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-12">
-                  <a class="btn btn-info" target="__blank" [routerLink]="['/updateUser', currentUser.id]">Edit</a>
-                </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.cin }}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Date de naissance</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ formatDate(currentUser.datenais) }}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Lieu de naissance</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.lieunais }}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-12">
+                <a class="btn btn-info" target="__blank" [routerLink]="['/updateUser', currentUser.id]">Edit</a>
               </div>
             </div>
           </div>
-          <div class="card mb-3">
-            <div class="card-body">
-              <h6 class="d-flex align-items-center mb-3">
-                <i class="material-icons text-info mr-2">Entreprises</i>
-              </h6>
-              <div class="col-sm-12">
-                <a class="btn btn-info" target="__blank" [routerLink]="['/addentreprise', currentUser.id]">Add Entreprise</a>
-              </div>
-              <table class="table user-list">
-                <thead>
-                  <tr>
-                    <th><span>Logo</span></th>
-                    <th><span>Nom</span></th>
-                    <th><span>Adresse</span></th>
-                    <th><span>Secteur d'activité</span></th>
-                    <th><span>Matricule</span></th>
-                    <th><span>Ville</span></th>
-                    <th><span>Siege Sociale</span></th>
-                    <th><span>Code TVA</span></th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let entreprise of currentUser.entreprises">
-                    <td>
-                      <img *ngIf="entreprise.logo" [src]="'data:image/png;base64,' + entreprise.logo" alt="Logo" class="pull-left photo">
-                    </td>
-                    <td>{{ entreprise.name }}</td>
-                    <td>{{ entreprise.adresse }}</td>
-                    <td>{{ entreprise.secteuractivite }}</td>
-                    <td>{{ entreprise.matricule }}</td>
-                    <td>{{ entreprise.ville }}</td>
-                    <td>{{ entreprise.siegesociale }}</td>
-                    <td>{{ entreprise.codeTVA }}</td>
-                    <td style="width: 20%;">
-                      <a class="table-link" [routerLink]="['/appeloffresadmin',entreprise.id]">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      <a class="table-link" [routerLink]="['/updateEntreprise',entreprise.id]">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      <a class="table-link danger" (click)="supprimerEntreprise(entreprise.id)">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3">
+              <i class="material-icons text-info mr-2">Entreprises</i>
+            </h6>
+            <div class="col-sm-12">
+              <a class="btn btn-info" target="__blank" [routerLink]="['/addentreprise', currentUser.id]" *ngIf="isAdmin">Add Entreprise</a>
             </div>
+            <table class="table user-list">
+              <thead>
+                <tr>
+                  <th><span>Logo</span></th>
+                  <th><span>Nom</span></th>
+                  <th><span>Adresse</span></th>
+                  <th><span>Secteur d'activité</span></th>
+                  <th><span>Matricule</span></th>
+                  <th><span>Ville</span></th>
+                  <th><span>Siege Sociale</span></th>
+                  <th><span>Code TVA</span></th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let entreprise of currentUser.entreprises">
+                  <td>
+                    <img *ngIf="entreprise.logo" [src]="'data:image/png;base64,' + entreprise.logo" alt="Logo" class="pull-left photo">
+                  </td>
+                  <td>{{ entreprise.name }}</td>
+                  <td>{{ entreprise.adresse }}</td>
+                  <td>{{ entreprise.secteuractivite }}</td>
+                  <td>{{ entreprise.matricule }}</td>
+                  <td>{{ entreprise.ville }}</td>
+                  <td>{{ entreprise.siegesociale }}</td>
+                  <td>{{ entreprise.codeTVA }}</td>
+                  <td style="width: 20%;" *ngIf="isAdmin">
+                    <a class="table-link" [routerLink]="['/appeloffresadmin',entreprise.id]">
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                    <a class="table-link" [routerLink]="['/updateEntreprise',entreprise.id]" >
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                    <a class="table-link danger" (click)="supprimerEntreprise(entreprise.id)">
+                      <span class="fa-stack">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                      </span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+
+      
     </div>
   </div>
-  
+</div>

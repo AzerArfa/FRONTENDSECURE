@@ -54,7 +54,7 @@ loadCurrentEntreprise(entrepriseId: string): void {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'downloadedOffer.pdf';  // You can set the default file name for download
+      link.download = 'OffreTelechargé.pdf';  
       document.body.appendChild(link);
       link.click();
       window.URL.revokeObjectURL(url);

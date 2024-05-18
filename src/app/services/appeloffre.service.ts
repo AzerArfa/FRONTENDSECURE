@@ -102,4 +102,15 @@ export class AppeloffreService {
     // Adjust the response type to 'blob' to handle the PDF binary data
     return this.http.get(`${offerApiURL}/offres/download/${offreId}`, { headers: headers, responseType: 'blob' });
   }
+
+  downloadDocumentAppelOffre(offreId: string): Observable<Blob> {
+    const headers = this.getAuthHeaders();
+    // Adjust the response type to 'blob' to handle the PDF binary data
+    return this.http.get(`${userofferApiURL}/offres/download/${offreId}`, { headers: headers, responseType: 'blob' });
+  }
+  downloadDocumentAppelOffreAdmin(offreId: string): Observable<Blob> {
+    const headers = this.getAuthHeaders();
+    // Adjust the response type to 'blob' to handle the PDF binary data
+    return this.http.get(`${offerApiURL}/appeloffres/download/${offreId}`, { headers: headers, responseType: 'blob' });
+  }
 }

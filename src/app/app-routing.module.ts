@@ -17,16 +17,28 @@ import { AppeloffresadminComponent } from './appeloffresadmin/appeloffresadmin.c
 import { UpdateappeloffreComponent } from './updateappeloffre/updateappeloffre.component';
 import { AddoffreComponent } from './addoffre/addoffre.component';
 import { DetailsappeloffreadminComponent } from './detailsappeloffreadmin/detailsappeloffreadmin.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AuthGuard } from './guards/auth.guard';
+import { SuperAdminGuard } from './guards/superadmin.guard';
+import { ActionentrepriseComponent } from './actionentreprise/actionentreprise.component';
+import { DemandecreationentrepriseComponent } from './demandecreationentreprise/demandecreationentreprise.component';
+import { DemanderejointentrepriseComponent } from './demanderejointentreprise/demanderejointentreprise.component';
+
+
 
 const routes: Routes = [
   {path:"addOffre/:id",component:AddoffreComponent},
+  {path:"demandecreationentreprise",component:DemandecreationentrepriseComponent,canActivate: [AuthGuard]},
+  {path:"demanderejointentreprise",component:DemanderejointentrepriseComponent,canActivate: [AuthGuard]},
+  {path:"actionentreprise",component:ActionentrepriseComponent,canActivate: [AuthGuard]},
+  {path:"forbidden",component:ForbiddenComponent},
   {path:"addAppelOffre/:id",component:AddappeloffreComponent},
   {path:"detailsAppelOffre/:id",component:DetailsappeloffreComponent},
   {path:"detailsAppelOffreAdmin/:id",component:DetailsappeloffreadminComponent},
   {path:"appeloffresadmin/:id",component:AppeloffresadminComponent},
-  {path:"home", component:HomeComponent},
+  {path:"home", component:HomeComponent ,canActivate: [AuthGuard]},
   {path:"about", component:AboutComponent},
-  {path:"users",component:UsersComponent},
+  {path:"users",component:UsersComponent,canActivate: [SuperAdminGuard]},
   {path:"login", component:LoginComponent},
   {path:"addUser",component:AddUserComponent},
   {path:"signUp",component:SignUpComponent},
@@ -35,8 +47,7 @@ const routes: Routes = [
   {path:"updateEntreprise/:id",component:UpdateEntrepriseComponent},
   {path:"profile/:id",component:ProfileComponent},
   { path: 'navbar', component: NavbarComponent } ,
-  {path:"addentreprise/:id",component:AddentrepriseComponent},
-  {path:"", redirectTo:"home",pathMatch:"full"}
+  {path:"addentreprise/:id",component:AddentrepriseComponent}
 ];
 
 @NgModule({

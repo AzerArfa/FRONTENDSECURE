@@ -44,7 +44,7 @@ export class AddoffreComponent implements OnInit {
   }
 
   loadEnterprisesIfNeeded() {
-    if (this.isAdmin) {
+   
       this.userService.getentreprisesbyuserid(this.authService.getUserInfo().userId).subscribe(
         data => {
           this.entreprises = data;  // Ensure that data is properly typed as Entreprise[]
@@ -53,7 +53,7 @@ export class AddoffreComponent implements OnInit {
           console.error('Error fetching enterprises:', error);
         }
       );
-    }
+    
   }
 
   getAppelOffreById(id: string): void {
@@ -108,6 +108,7 @@ export class AddoffreComponent implements OnInit {
             }
           });
         } else {
+          formData.append('entrepriseid', this.newOffre.entrepriseid);
           this.offreService.createOffre(this.idAppelOffre, formData).subscribe({
             next: (response) => {
               console.log('User offer created successfully', response);

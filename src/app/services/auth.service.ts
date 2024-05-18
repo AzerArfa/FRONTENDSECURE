@@ -24,7 +24,16 @@ export class AuthService {
 // Method to check if the logged user is an admin
 isAdmin(): boolean {
   const userInfo = this.getUserInfo();
-  return userInfo && userInfo.roles && userInfo.roles.includes('ROLE_ADMIN');
+  return userInfo.roles.includes('ROLE_ADMIN');
+}
+isSuperAdmin(): boolean {
+  const userInfo = this.getUserInfo();
+  return userInfo.roles.includes('ROLE_SUPERADMIN');
+}
+isAuthenticated(): boolean {
+  const token = localStorage.getItem('authToken'); // or however you store your token
+  console.log('Token Present:', !!token);
+  return !!token; // Example condition
 }
 
   login(user: any): Observable<HttpResponse<any>> {

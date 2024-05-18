@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userInfo: any;
   isloggedIn: boolean = false;
   private userInfoSubscription?: Subscription;
+  isSuperAdmin!: boolean;
 
   constructor(
     public authService: AuthService, 
@@ -46,6 +47,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // Initialize with current state
     this.userInfo = this.authService.getUserInfo();
     this.isloggedIn = this.authService.isloggedInState;
+    this.isSuperAdmin = this.authService.isSuperAdmin(); 
   }
 
   refreshNavbar(): void {
