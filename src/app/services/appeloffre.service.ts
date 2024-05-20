@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { offerApiURL, userofferApiURL } from '../config';
+import { offerApiURL, userofferApiURL,visitorofferApiURL } from '../config';
 import { AppelOffre } from '../model/appeloffre.model';
 import { Offre } from '../model/offre.model';
+import { Categorie } from '../model/categorie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,22 @@ export class AppeloffreService {
       'Authorization': `Bearer ${token}`
     });
   }
-
+  getAllCategories(): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(`${userofferApiURL}/categories`, { headers: this.getAuthHeaders() });
+  }
+  getAppelOffresByCategorieId(categorieId: string): Observable<AppelOffre[]> {
+    return this.http.get<AppelOffre[]>(`${userofferApiURL}/categories/${categorieId}/appeloffres`, { headers: this.getAuthHeaders() });
+  }
+  getAllCategoriesVISITOR(): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(`${visitorofferApiURL}/categories`);
+  }
+  getAppelOffresByCategorieIdVISITOR(categorieId: string): Observable<AppelOffre[]> {
+    return this.http.get<AppelOffre[]>(`${visitorofferApiURL}/categories/${categorieId}/appeloffres`, { headers: this.getAuthHeaders() });
+  }
+  getAllAppelOffresvisitor(): Observable<any[]> {
+    return this.http.get<any[]>(`${visitorofferApiURL}/appeloffres`);
+  }
+ 
   getAllAppelOffres(): Observable<AppelOffre[]> {
     return this.http.get<AppelOffre[]>(`${offerApiURL}`, { headers: this.getAuthHeaders() });
   }

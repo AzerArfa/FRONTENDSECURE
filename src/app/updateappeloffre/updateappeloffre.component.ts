@@ -4,6 +4,7 @@ import { AppelOffre } from '../model/appeloffre.model';
 import { formatDate } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-updateappeloffre',
   templateUrl: './updateappeloffre.component.html',
@@ -19,7 +20,8 @@ export class UpdateappeloffreComponent implements OnInit {
     private appeloffreService: AppeloffreService, 
     private activatedRoute: ActivatedRoute, 
     private router: Router,
-    private location: Location
+    private location: Location,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +33,18 @@ export class UpdateappeloffreComponent implements OnInit {
           if (currentAppelOffre.datelimitesoumission) {
             this.datelimitesoumissionFormatted = formatDate(currentAppelOffre.datelimitesoumission, 'yyyy-MM-dd', 'en-US');
           }
+        
         },
-        error => console.error('Error loading currentAppelOffre:', error)
+        error => {
+          this.toastr.error('Modification echoué', "Appel d'offre", {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+          console.error('Error loading currentAppelOffre:', error);
+
+        }
       );
     });
   }
@@ -66,12 +78,24 @@ export class UpdateappeloffreComponent implements OnInit {
 
     this.appeloffreService.updateAppelOffreFormData(this.currentAppelOffre.id, formData).subscribe(
       () => {
+        
         console.log('currentAppelOffre updated successfully');
         this.location.back();
+        this.toastr.success('Modification terminé avec succées', "Appel d'offre", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
       },
       error => {
+        this.toastr.error('Modification echoué', "Appel d'offre", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         console.error('Error updating currentAppelOffre:', error);
-        alert('Failed to update the currentAppelOffre. Please check the console for more information.');
       }
     );
   }

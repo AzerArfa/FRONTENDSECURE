@@ -8,6 +8,7 @@ export class User{
     datenais!: Date;
     lieunais!: string;
     name!: string;
+    prenom!: string;
     password!: string; // You'll need to create a Password model
     roles!: Role[];
     entreprises!: Entreprise[];

@@ -8,7 +8,7 @@
             <div class="d-flex flex-column align-items-center text-center">
               <img [src]="currentUser.img ? 'data:image/png;base64,' + currentUser.img : 'https://bootdey.com/img/Content/avatar/avatar7.png'" alt="User" class="rounded-circle" width="150">
               <div class="mt-3">
-                <h4>{{ currentUser.name }}</h4>
+                <h4>{{ currentUser.prenom }} {{ currentUser.name }}</h4>
                 <p class="text-secondary mb-1"></p>
               </div>
             </div>
@@ -74,6 +74,15 @@
             <hr>
             <div class="row">
               <div class="col-sm-3">
+                <h6 class="mb-0">Prenom</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ currentUser.prenom }}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
                 <h6 class="mb-0">Email</h6>
               </div>
               <div class="col-sm-9 text-secondary">
@@ -110,7 +119,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info" target="__blank" [routerLink]="['/updateUser', currentUser.id]">Edit</a>
+                <a class="btn btn-info" target="__blank" [routerLink]="['/updateUser', currentUser.id]">Modifier</a>
               </div>
             </div>
           </div>
@@ -118,10 +127,12 @@
         <div class="card mb-3">
           <div class="card-body">
             <h6 class="d-flex align-items-center mb-3">
-              <i class="material-icons text-info mr-2">Entreprises</i>
-            </h6>
+              <i class="material-icons text-info mr-2">assignment</i>
+              <span style="font-size:x-large">Entreprises</span>
+          </h6>
+          
             <div class="col-sm-12">
-              <a class="btn btn-info" target="__blank" [routerLink]="['/addentreprise', currentUser.id]" *ngIf="isAdmin">Add Entreprise</a>
+              <a class="btn btn-info" target="__blank" [routerLink]="['/demandecreationentreprise']">Ajouter Entreprise</a>
             </div>
             <table class="table user-list">
               <thead>

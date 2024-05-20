@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-entreprise',
@@ -22,7 +23,7 @@ export class UpdateEntrepriseComponent implements OnInit{
     logo: null
   };
   userInfo: any;  
-  constructor(private userService : UserService, private authService: AuthService, private activatedRoute : ActivatedRoute, private router: Router){}
+  constructor(private toastr:ToastrService,private userService : UserService, private authService: AuthService, private activatedRoute : ActivatedRoute, private router: Router){}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -63,8 +64,22 @@ export class UpdateEntrepriseComponent implements OnInit{
         () => {
           // Redirect to the user's profile page using the userId from userInfo
           this.router.navigate(['/profile', this.userInfo.userId]);
+          this.toastr.success('Modification terminé avec succées', "Entreprise", {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
         },
-        error => console.error(error)
+        
+        error =>{
+          this.toastr.error('Modification echoué', "Entreprise", {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
+          console.error(error);}
       );
     });
   }

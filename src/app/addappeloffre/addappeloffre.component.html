@@ -11,6 +11,14 @@
         <div class="input-box">
           <input type="text" placeholder="Localisation" [(ngModel)]="newAppelOffre.localisation" name="localisation" required>
         </div>
+        <!-- Category Dropdown -->
+<div class="input-box">
+  <select [(ngModel)]="newAppelOffre.categorieId" name="categorieId" required>
+    <option value="" disabled selected>Choisir un catégorie</option>
+    <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nomcategorie }}</option>
+  </select>
+</div>
+
         <div class="input-box">
           <input type="date" placeholder="Submission Deadline" [(ngModel)]="datelimitesoumissionFormatted" name="datelimitesoumission" required>
         </div>
@@ -21,7 +29,7 @@
         <div class="image-upload-container">
             <label for="image-upload" class="image-upload-label">
                 <i class="upload-icon">📷</i>
-                Upload product images
+                Image
             </label>
             <input type="file" (change)="onImageSelected($event)" name="img" id="image-upload" multiple hidden>
         </div>

@@ -4,6 +4,8 @@ import { AppeloffreService } from '../services/appeloffre.service';
 import { formatDate } from '@angular/common';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Categorie } from '../model/categorie.model';
 @Component({
   selector: 'app-addappeloffre',
   templateUrl: './addappeloffre.component.html',
@@ -14,23 +16,32 @@ export class AddappeloffreComponent implements OnInit{
     titre: '',
     description: '',
     localisation: '',
-    datelimitesoumission: ''
+    datelimitesoumission: '',
+    categorieId: null
   };
   selectedFile: File | null = null;
   selectedDocument: File | null = null;
   entrepriseId!: string;
   datelimitesoumissionFormatted: string | null = null;
-
+  categories: Categorie[] = []; 
   constructor(
     private  appeloffreService: AppeloffreService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.entrepriseId = params['id'];
+    });
+    this.fetchCategories();
+  }
+  fetchCategories(): void {
+    this.appeloffreService.getAllCategories().subscribe({
+      next: categories => this.categories = categories,
+      error: error => console.error('Error fetching categories', error)
     });
   }
 
@@ -52,6 +63,7 @@ export class AddappeloffreComponent implements OnInit{
     formData.append('description', this.newAppelOffre.description);
     formData.append('localisation', this.newAppelOffre.localisation);
     formData.append('entrepriseId', this.entrepriseId);
+    formData.append('categorieId', this.newAppelOffre.categorieId);
     if (this.datelimitesoumissionFormatted) {
       formData.append('datelimitesoumission', this.datelimitesoumissionFormatted);
     }
@@ -63,11 +75,23 @@ export class AddappeloffreComponent implements OnInit{
     }
 
     this.appeloffreService.createAppelOffre(formData).subscribe({
-      next: (response) => {
+      next: (response) => { 
         console.log('Offer created successfully', response);
         this.location.back();
+        this.toastr.success('Création terminé avec succées', "Appel d'offre", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
       },
       error: (error) => {
+        this.toastr.error('Connexion echoué', "Appel d'offre", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         console.error('Error creating offer', error);
         alert('Failed to create the offer. Check console for details.');
       }

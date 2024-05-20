@@ -23,11 +23,14 @@ import { SuperAdminGuard } from './guards/superadmin.guard';
 import { ActionentrepriseComponent } from './actionentreprise/actionentreprise.component';
 import { DemandecreationentrepriseComponent } from './demandecreationentreprise/demandecreationentreprise.component';
 import { DemanderejointentrepriseComponent } from './demanderejointentreprise/demanderejointentreprise.component';
+import { HomevisitorComponent } from './homevisitor/homevisitor.component';
+import { ListentreprisesComponent } from './listentreprises/listentreprises.component';
 
 
 
 const routes: Routes = [
   {path:"addOffre/:id",component:AddoffreComponent},
+  {path:"listentreprises",component:ListentreprisesComponent},
   {path:"demandecreationentreprise",component:DemandecreationentrepriseComponent,canActivate: [AuthGuard]},
   {path:"demanderejointentreprise",component:DemanderejointentrepriseComponent,canActivate: [AuthGuard]},
   {path:"actionentreprise",component:ActionentrepriseComponent,canActivate: [AuthGuard]},
@@ -47,6 +50,8 @@ const routes: Routes = [
   {path:"updateEntreprise/:id",component:UpdateEntrepriseComponent},
   {path:"profile/:id",component:ProfileComponent},
   { path: 'navbar', component: NavbarComponent } ,
+  { path: 'homevisitor', component: HomevisitorComponent } ,
+  { path: '', component: HomevisitorComponent } ,
   {path:"addentreprise/:id",component:AddentrepriseComponent}
 ];
 

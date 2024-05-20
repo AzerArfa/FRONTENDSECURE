@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modifier un utilisateur</title>
+  <title>Modifier votre profile</title>
 </head>
 <body>
   <div class="full-screen-container">
     <div class="form-container">
-      <h2>Modifier un utilisateur</h2>
+      <h2>Modifier votre profile</h2>
       <form (ngSubmit)="updateUser()">
         <div class="input-box">
           <input type="text" placeholder="Email" [(ngModel)]="currentUser.email" name="email" class="form-control" required>
         </div>
         <div class="input-box">
-          <input type="text" placeholder="Username" [(ngModel)]="currentUser.name" name="username" class="form-control" required>
+          <input type="text" placeholder="Nom" [(ngModel)]="currentUser.name" name="username" class="form-control" required>
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Prenom" [(ngModel)]="currentUser.prenom" name="prenom" class="form-control" required>
         </div>
         <div class="input-box">
           <input type="text" placeholder="CIN" [(ngModel)]="currentUser.cin" name="cin" class="form-control" required>

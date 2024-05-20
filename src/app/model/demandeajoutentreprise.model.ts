@@ -10,5 +10,6 @@ export class DemandeAjoutEntreprise {
     codeTVA!: string;
     logo: any; 
     userId!:string;
+    codetvadocument!:string;
     status!:string;
 }

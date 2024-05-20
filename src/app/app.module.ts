@@ -32,7 +32,12 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ActionentrepriseComponent } from './actionentreprise/actionentreprise.component';
 import { DemandecreationentrepriseComponent } from './demandecreationentreprise/demandecreationentreprise.component';
 import { DemanderejointentrepriseComponent } from './demanderejointentreprise/demanderejointentreprise.component';
-
+import { HomevisitorComponent } from './homevisitor/homevisitor.component';
+import { ListentreprisesComponent } from './listentreprises/listentreprises.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,15 +63,24 @@ import { DemanderejointentrepriseComponent } from './demanderejointentreprise/de
     ForbiddenComponent,
     ActionentrepriseComponent,
     DemandecreationentrepriseComponent,
-    DemanderejointentrepriseComponent
+    DemanderejointentrepriseComponent,
+    HomevisitorComponent,
+    ListentreprisesComponent
     
   ],
-  imports: [
+  imports: [ToastrModule.forRoot({
+    timeOut: 10000,
+    positionClass: 'toast-bottom-right',
+    preventDuplicates: true,
+  }),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RecaptchaModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     HttpClient,

@@ -12,6 +12,7 @@ export class UpdateUserComponent implements OnInit {
   currentUser: any = {
     email: '',
     name: '',
+    prenom:'',
     cin: '',
     datenais: '',
     lieunais: ''
@@ -31,8 +32,8 @@ export class UpdateUserComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(
         (data: any) => {
           this.currentUser = data;
+          
           if (this.currentUser.datenais) {
-            // Convert the date string to the correct format for input[type="date"]
             const date = new Date(this.currentUser.datenais);
             if (!isNaN(date.getTime())) {
               this.currentUser.datenais = this.formatDate(date);
@@ -40,11 +41,16 @@ export class UpdateUserComponent implements OnInit {
               console.error('Invalid date format:', this.currentUser.datenais);
             }
           }
+          if (this.currentUser.img) {
+            // Assuming 'img' is a Base64 encoded string
+            this.currentUser.imgUrl = `data:image/jpeg;base64,${this.currentUser.img}`;
+          }
         },
         error => console.error(error)
       );
     });
   }
+  
 
   formatDate(date: Date): string {
     const day = ('0' + date.getDate()).slice(-2);
@@ -54,25 +60,27 @@ export class UpdateUserComponent implements OnInit {
   }
 
   updateUser(): void {
+    if (!this.currentUser) {
+      console.error('No current user data available');
+      return;
+    }
+  
     const formData: FormData = new FormData();
     formData.append('email', this.currentUser.email);
     formData.append('name', this.currentUser.name);
+    formData.append('prenom', this.currentUser.prenom);
     formData.append('cin', this.currentUser.cin);
     formData.append('datenais', this.currentUser.datenais);
     formData.append('lieunais', this.currentUser.lieunais);
-
+  
     if (this.selectedFile) {
       formData.append('img', this.selectedFile, this.selectedFile.name);
     }
-
+  
+    // Ensure no Content-Type header is manually set here
     this.userService.updateUser(this.currentUser.id, formData).subscribe(
       (response: any) => {
-        console.log('User updated successfully', response);
-
-        // Emit the user change event
-        
-
-        // Navigate to dummy route and back to force navbar reload
+        console.log('Update successful', response);
         this.router.navigate([`/profile/${this.currentUser.id}`]);
       },
       error => {
@@ -80,8 +88,15 @@ export class UpdateUserComponent implements OnInit {
       }
     );
   }
-
+  
   onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
+    if (event.target.files && event.target.files.length > 0) {
+      // A new file has been selected
+      this.selectedFile = event.target.files[0];
+    } else {
+      // No new file was selected, reset selectedFile to null
+      this.selectedFile = null;
+    }
   }
+  
 }

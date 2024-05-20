@@ -11,4 +11,6 @@ export class Entreprise {
     codeTVA!: string;
     logo: any; 
     users!: User[];
+    codetvadocument!:string;
+    status!:string;
 }

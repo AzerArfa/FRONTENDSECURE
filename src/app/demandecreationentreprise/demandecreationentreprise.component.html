@@ -12,28 +12,8 @@
           <h2>Demande d'inscription de votre entreprise</h2>
           <h2>sur notre plateforme</h2>
       </div>
+      <hr>
       <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-        <div class="input-box">
-          <input type="text" placeholder="Name" [(ngModel)]="newEntreprise.name" name="name" required>
-        </div>
-        <div class="input-box">
-          <input type="email" placeholder="Adresse" [(ngModel)]="newEntreprise.adresse" name="adresse" required>
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Secteur d'activité" [(ngModel)]="newEntreprise.secteuractivite" name="secteuractivite" required>
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Matricule" [(ngModel)]="newEntreprise.Matricule" name="Matricule" required>
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Ville" [(ngModel)]="newEntreprise.ville" name="ville" required>
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Siège sociale" [(ngModel)]="newEntreprise.siegesociale" name="siegesociale" required>
-        </div>
-        <div class="input-box">
-          <input type="text" placeholder="Code TVA" [(ngModel)]="newEntreprise.codeTVA" name="codeTVA" required>
-        </div>
         <div class="image-upload-container">
             <label for="image-upload" class="image-upload-label">
                 <i class="upload-icon">📷</i>
@@ -41,6 +21,39 @@
             </label>
             <input type="file" (change)="onFileSelected($event)" name="logo" id="image-upload" multiple hidden>
         </div>
+        <div class="input-box full-width">
+          <input type="text" placeholder="Nom" [(ngModel)]="newEntreprise.name" name="name" required>
+        </div>
+        <div class="input-box half-width">
+          <input type="text" placeholder="Ville" [(ngModel)]="newEntreprise.ville" name="ville" required>
+          <input type="text" placeholder="Adresse" [(ngModel)]="newEntreprise.adresse" name="adresse" required>
+        </div>
+        <div class="input-box half-width">
+          <input type="text" placeholder="Secteur d'activité" [(ngModel)]="newEntreprise.secteuractivite" name="secteuractivite" required>
+          <input type="text" placeholder="Siège sociale" [(ngModel)]="newEntreprise.siegesociale" name="siegesociale" required>
+        </div>
+        <div class="input-box half-width">
+          <input type="text" placeholder="Matricule fiscale" [(ngModel)]="newEntreprise.Matricule" name="Matricule" required>
+          <input type="text" placeholder="Code TVA" [(ngModel)]="newEntreprise.codeTVA" name="codeTVA" required>
+        </div>
+        <div class="input-box half-width">
+          <div class="image-upload-container">
+            <label for="codetvadocument" class="image-upload-label">
+                <i class="fas fa-file-pdf upload-icon"></i> <!-- Replace emoji with Font Awesome PDF icon -->
+                Document CodeTVA
+            </label>
+            <input type="file" (change)="onDocumentCODETVASelected($event)" name="codetvadocument" id="codetvadocument" accept="application/pdf" style="opacity: 0;">
+          </div>
+          <div class="image-upload-container">
+            <label for="status" class="image-upload-label">
+                <i class="fas fa-file-pdf upload-icon"></i> <!-- Replace emoji with Font Awesome PDF icon -->
+                Status
+                <input type="file" (change)="onDocumentSelected($event)" name="status" id="status" accept="application/pdf" style="opacity: 0;">
+            </label>
+          </div>
+        </div>
+        
+        <hr>
         <button type="submit" class="btn">Envoyer demande</button>
       </form>
     </div>

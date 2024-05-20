@@ -7,6 +7,7 @@ import { AppeloffreService } from '../services/appeloffre.service';
 import { AuthService } from '../services/auth.service';
 import { DemandeAjoutEntreprise } from '../model/demandeajoutentreprise.model';
 import { DemandeRejoindreEntreprise } from '../model/demanderejoindreentreprise.model';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
 
   
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService,private authService:AuthService,
-    private appeloffreService: AppeloffreService ) {}
+    private appeloffreService: AppeloffreService,private toastr:ToastrService ) {}
 
   ngOnInit(): void {
     const userId = this.activatedRoute.snapshot.params['id'];
@@ -44,7 +45,7 @@ export class ProfileComponent implements OnInit {
     this.userService.approveCreationRequest(requestId, userId).subscribe({
       next: (response) => {
           console.log('Creation request approved successfully:', response);
-          window.location.reload();
+          this.loadCreationRequests();
           // Optionally refresh the list or update the UI
       },
       error: (error) => {
@@ -61,7 +62,7 @@ export class ProfileComponent implements OnInit {
 rejectCreation(requestId: string) {
     this.userService.rejectCreationRequest(requestId).subscribe({
         next: () => {console.log('Creation request rejected successfully.');
-        window.location.reload();
+        this.loadCreationRequests();
         }
         ,
         error: error => console.error('Failed to reject creation request:', error)
@@ -71,7 +72,7 @@ rejectCreation(requestId: string) {
     this.userService.approveJoinRequest(requestId).subscribe({
       next: response => {
           console.log('Join request approved:', response);
-          window.location.reload();
+          this.loadJoinRequests();
       },
       error: error => {
           console.error('Failed to approve join request', error);
@@ -85,7 +86,7 @@ rejectCreation(requestId: string) {
     this.userService.rejectJoinRequest(requestId).subscribe({
       next: response => {
         console.log('Join request rejected');
-        window.location.reload();
+        this.loadJoinRequests();
         // Optionally refresh the list of join requests or handle UI updates here
       },
       error: err => console.error('Failed to reject join request', err)
@@ -143,7 +144,13 @@ rejectCreation(requestId: string) {
       console.log('Checking appeloffres for entreprise with ID (admin):', id);
       this.appeloffreService.getAppelOffresByEntrepriseId(id).subscribe(appeloffres => {
         if (appeloffres && appeloffres.length > 0) {
-          alert("Vous devez supprimer les offres associés à cette entreprise avant de pouvoir la supprimer.");
+          this.toastr.error('Vous devez supprimer les offres associés à cette entreprise avant de pouvoir la supprimer.', 'Erreur', {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+        });
+        
         } else {
           this.deleteEntreprise(id);
         }

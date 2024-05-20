@@ -13,44 +13,42 @@
     <!-- Header-->
     <header class="bg-primary py-5">
         <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Les appels d'offres disponibles</h1>
-                 </div>
-        </div>
-    </header>
-  
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productContainer">
-                <!-- Dynamic appeloffre Template -->
-                <div class="col mb-5" *ngFor="let appeloffre of appeloffres">
-                    <div class="card h-100">
-                        <!-- appeloffre image-->
-                        <img class="card-img-top" [src]="appeloffre.img ? 'data:image/png;base64,' + appeloffre.img : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="appeloffre Image" />
+          <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Les appels d'offres disponibles</h1>
+            <select [(ngModel)]="selectedCategoryId" (change)="onCategorySelected($event)"
+            class="form-control" style="width: 200px; margin: 20px auto;">
+      <option value="">Choisir un catégorie</option>
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.nomcategorie }}
+      </option>
+    </select>
     
-                        <!-- appeloffre details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- appeloffre title-->
-                                <h5 class="fw-bolder">{{ appeloffre.titre }}</h5>
-                                <!-- appeloffre description-->
-                               
-                                <!-- appeloffre date-->
-                                <p>{{ appeloffre.datecreation | date }}</p>
-
-                        
-                            </div>
-                        </div>
-                        <!-- appeloffre actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" [routerLink]="['/detailsAppelOffre',appeloffre.id]">Voir détails</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  
+          </div>
         </div>
-    </section>
-    <!-- Footer (ensure you have an app-footer component or adjust as needed) -->
-    <app-footer></app-footer>
-</body>
-</html>
+      </header>
+      
+      <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productContainer">
+            <!-- Dynamic appeloffre Template -->
+            <div class="col mb-5" *ngFor="let appeloffre of appeloffres">
+              <div class="card h-100">
+                <!-- appeloffre image-->
+                <img class="card-img-top" [src]="appeloffre.img ? 'data:image/png;base64,' + appeloffre.img : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="appeloffre Image" />
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <h5 class="fw-bolder">{{ appeloffre.titre }}</h5>
+                    <p>{{ appeloffre.datelimitesoumission | date }}</p>
+                    <p>{{ appeloffre.localisation }}</p>
+                  </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center"><a class="btn btn-outline-dark mt-auto" *ngIf="hasEntreprises">Voir détails</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-demandecreationentreprise',
@@ -16,18 +17,21 @@ export class DemandecreationentrepriseComponent  implements OnInit {
     Matricule: '',
     ville: '',
     siegesociale: '',
-    codeTVA: ''
+    codeTVA: '',
+    codetvadocument:'',
+    status:''
   };
   selectedFile: File | null = null;
   userId!: string | null;
-
-  
+  selectedDocument: File | null = null;
+  codetvadocument: File | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private router: Router,
-    private authservice:AuthService
+    private authservice:AuthService,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -54,15 +58,34 @@ export class DemandecreationentrepriseComponent  implements OnInit {
     if (this.selectedFile) {
       formData.append('logo', this.selectedFile, this.selectedFile.name);
     }
-
+    if (this.codetvadocument) {
+      console.log('Appending codetvadocument:', this.codetvadocument.name);
+      formData.append('codetvadocument', this.codetvadocument, this.codetvadocument.name);
+    }
+    
+    if (this.selectedDocument) {
+      formData.append('status', this.selectedDocument, this.selectedDocument.name);
+    }
     console.log('Form Data to be sent:', (formData as any).entries ? Object.fromEntries((formData as any).entries()) : formData); // Debugging
 
     this.userService.requestToAddEntreprise(this.userId!, formData).subscribe(
       response => {
         console.log('Request added successfully:', response);
         this.router.navigate([`/profile/${this.userId}`]);
+        this.toastr.success('Votre demande a été envoyé avec succées', 'Demande rejoint entreprise', {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
       },
       error => {
+        this.toastr.error('Votre demande n’a pas pu être traitée', 'Échec de la demande', {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+      });
         console.error('Error adding Request:', error);
         if (error.error) {
           console.error('Backend returned error message:', error.error);
@@ -72,5 +95,18 @@ export class DemandecreationentrepriseComponent  implements OnInit {
         }
       }
     );
+  }
+  
+  onDocumentCODETVASelected(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.codetvadocument = event.target.files[0];
+      console.log('Selected CODETVA Document:', this.codetvadocument);
+    }
+  }
+  
+  onDocumentSelected(event: any): void {
+    if (event.target.files && event.target.files[0]) {
+      this.selectedDocument = event.target.files[0];
+    }
   }
 }

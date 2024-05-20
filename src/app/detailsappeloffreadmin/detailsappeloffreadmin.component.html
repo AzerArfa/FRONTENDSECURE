@@ -45,15 +45,18 @@
           </thead>
           <tbody>
             <tr *ngFor="let offre of offres">
-              <td>{{ offre.numtel }}</td>
-              <td>{{ offre.montant }}</td>
-              <td>{{ offre.delaisderealisation }}</td>
-              <td>{{ offre.datededepot }}</td>
-              <td>
-                <a (click)="downloadDocument(offre.id)" style="color:blue">Télecharger</a>
-              </td>
+                <td>{{ offre.numtel }}</td>
+                <td>{{ offre.montant }} TND</td>
+                <td>{{ offre.delaisderealisation | date }}</td>
+                <td>{{ offre.datededepot | date }}</td>
+                <td>
+                    <a (click)="downloadDocument(offre.id)" style="color: #FF5733; font-size: 30px;text-align: center;">
+                        <i class="fas fa-file-pdf"></i>
+                    </a>
+                </td>
             </tr>
-          </tbody>
+        </tbody>
+        
         </table>
       </div>
     </div>

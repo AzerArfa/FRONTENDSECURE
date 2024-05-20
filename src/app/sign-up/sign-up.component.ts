@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,24 +15,34 @@ export class SignUpComponent  {
   
   newUser: User = new User();
   selectedFile: File | null = null;  // Allow null as a valid value
+  confirmPassword: string = '';
   captcha: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,private toastr:ToastrService) { }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
   }
 
-  resolved(captchaResponse: string) {
-    this.captcha = true;
+  resolved(captchaResponse: string): void {
+    this.captcha = !!captchaResponse;
   }
 
   onSubmit(): void {
+    if (this.confirmPassword !== this.newUser.password) {
+      this.toastr.error('Les mots de passe ne correspondent pas!', 'Sign up', {
+        timeOut: 5000,
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
+      return;
+    }
     const formData: FormData = new FormData();
     formData.append('cin', this.newUser.cin);
     formData.append('email', this.newUser.email);
     formData.append('name', this.newUser.name);
-    
+    formData.append('prenom', this.newUser.prenom);
     // Format the date properly
     const formattedDate = this.formatDate(new Date(this.newUser.datenais));
     formData.append('datenais', formattedDate);
@@ -46,6 +57,12 @@ export class SignUpComponent  {
       console.log('User signed up successfully', response);
       this.router.navigate(['/login']);
     }, error => {
+      this.toastr.error('Enregistrement echoué', 'Sign up', {
+        timeOut: 5000,
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
       console.error('Error signing up user', error);
     });
   }

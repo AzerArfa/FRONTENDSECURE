@@ -2,11 +2,13 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f0f8ff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .bg-primary {
-  background-color: #3B3F58 !important; /* Adjusting primary background to match theme */
+  background-color: #3B3F58 !important; 
 }
 
 .btn-outline-light {
@@ -59,4 +61,82 @@ body {
 
 .text-center {
   text-align: center;
+} 
+.enterprise-header {
+  background-color: #3B3F58; /* Deep blue background */
+  color: white;
+  padding: 20px 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.enterprise-logo {
+  height: 80px; /* Adjust size as necessary */
+  width: auto;
+}
+
+.enterprise-info {
+  flex-grow: 1; /* Allows it to take up any extra space */
+  padding-left: 20px; /* Spacing from the logo */
+}
+
+.enterprise-title {
+  margin-bottom: 0.5rem;
+  font-size: 2rem; /* Larger font size for the title */
+}
+
+.enterprise-detail {
+  font-size: 1.2rem; /* Slightly smaller font size for the detail */
+}
+
+.btn-outline-light {
+  border-color: #fff;
+  color: #fff;
+  background: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #3B3F58; /* Adjust hover color to match theme */
+}
+
+/* Ensure existing styles don't conflict */
+.container {
+  max-width: 1200px; /* Adjust container size as necessary */
+  padding: 0 15px; /* Small padding on the sides */
+}
+
+.card, .card-img-top, .card-body, .card-footer {
+  /* No changes needed here unless further customization is desired */
+}
+.user-card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-card:hover {
+  transform: scale(1.05);
+}
+
+
+
+.card-body {
+  text-align: center; /* Center-align the text in card */
+}
+
+.btn-primary {
+  background-color: #4CAF50;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
 }

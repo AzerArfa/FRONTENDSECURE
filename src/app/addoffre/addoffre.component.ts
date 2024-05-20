@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { Entreprise } from '../model/entreprise.model';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-addoffre',
   templateUrl: './addoffre.component.html',
@@ -31,7 +32,8 @@ export class AddoffreComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     private userService: UserService,
-    private offreService: AppeloffreService
+    private offreService: AppeloffreService,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -111,10 +113,23 @@ export class AddoffreComponent implements OnInit {
           formData.append('entrepriseid', this.newOffre.entrepriseid);
           this.offreService.createOffre(this.idAppelOffre, formData).subscribe({
             next: (response) => {
+           
               console.log('User offer created successfully', response);
               this.router.navigate(['/home']);
+              this.toastr.success('Création terminé avec succées', "Offre", {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: 'toast-top-right',
+              });
             },
             error: (error) => {
+              this.toastr.error('Création echoué.', "Offre", {
+                timeOut: 5000,
+                closeButton: true,
+                progressBar: true,
+                positionClass: 'toast-top-right',
+              });
               console.error('Error creating user offer', error);
               alert('Failed to create the user offer. Check console for details.');
             }

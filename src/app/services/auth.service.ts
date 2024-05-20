@@ -19,9 +19,13 @@ export class AuthService {
   public userInfoData: any = null;
 
   constructor(private http: HttpClient) {
-    this.checkLoginStatus(); // Check login status on initialization
+    this.checkLoginStatus(); 
   }
-// Method to check if the logged user is an admin
+  hasEntreprises(): boolean {
+    const userInfo = this.getUserInfo();
+    console.log(userInfo.entreprises);
+    return userInfo.entreprises;
+  }
 isAdmin(): boolean {
   const userInfo = this.getUserInfo();
   return userInfo.roles.includes('ROLE_ADMIN');
@@ -39,6 +43,8 @@ isAuthenticated(): boolean {
   login(user: any): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${authApiURL}/login`, user, { observe: 'response' }).pipe(
       tap((res: HttpResponse<any>) => {
+        
+      console.log('Login response:', res.body);
         const token = res.body.jwt;
         if (token) {
           localStorage.setItem('authToken', token);
@@ -48,6 +54,7 @@ isAuthenticated(): boolean {
           // Construct userInfo from response
           this.userInfoData = {
             roles: res.body.roles,
+            entreprises: res.body.entreprises || [],
             userId: res.body.userId,
             imageUrl: res.body.userImage ? `data:image/png;base64,${res.body.userImage}` : null // Handle null image
           };
@@ -92,17 +99,17 @@ isAuthenticated(): boolean {
 
   // Update user info in local storage and BehaviorSubject
   updateUserInfo(updatedUser: any): void {
-    console.log('Updating user info with:', updatedUser); // Debugging
     const updatedUserInfo = {
       ...this.userInfoData,
       ...updatedUser,
+      entreprises: updatedUser.entreprises || this.userInfoData.entreprises, // Safeguard against undefined entreprises
       imageUrl: updatedUser.body.img ? `data:image/png;base64,${updatedUser.body.img}` : this.userInfoData.imageUrl
     };
-    console.log('Updated user info:', updatedUserInfo); // Debugging
-    this.userInfoData = updatedUserInfo;
     localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+    this.userInfoData=updatedUserInfo;
     this.userInfoSubject.next(updatedUserInfo);
   }
+  
 
   // New method to refresh token and user info
   refreshUserInfo(updatedUser: any): void {

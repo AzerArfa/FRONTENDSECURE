@@ -4,21 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Offres</title>
-
 </head>
 <body>
-    <!-- Header-->
-    <header class="bg-primary py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Mes appels d'offres</h1> <br>
-                <p class="lead fw-normal text-white-50 mb-0">
-                    <button class="btn btn-outline-light" [routerLink]="['/addAppelOffre', entrepriseId]">Créer un appel d'offre</button>
-                </p>
+    <header class="enterprise-header">
+        <div class="container header-container">
+            <div class="header-content">
+                <img src="{{ entreprise?.logo ? 'data:image/png;base64,' + entreprise?.logo : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg' }}" alt="Enterprise Logo" class="enterprise-logo">
+                <div class="enterprise-info">
+                    <h1>{{ entreprise?.name }}</h1>
+                    <p>{{ entreprise?.ville }}</p>
+                </div>
+                <button [routerLink]="['/addAppelOffre', entrepriseId]">Créer un appel d'offre</button>
             </div>
         </div>
     </header>
-    <!-- Section-->
+    
     <section class="py-5" *ngIf="isLoading">
         <div class="container px-4 px-lg-5 mt-5 text-center">
             <div class="spinner-border text-primary" role="status">
@@ -26,42 +26,34 @@
             </div>
         </div>
     </section>
+
     <section class="py-5" *ngIf="!isLoading">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productContainer">
-                <!-- Dynamic appeloffre Template -->
                 <div class="col mb-5" *ngFor="let appeloffre of appeloffres">
                     <div class="card h-100">
-                        <!-- appeloffre image-->
                         <img class="card-img-top" [src]="appeloffre.img ? 'data:image/png;base64,' + appeloffre.img : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" alt="appeloffre Image" />
-                        <!-- appeloffre details-->
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <!-- appeloffre title-->
                                 <h5 class="fw-bolder">{{ appeloffre.titre }}</h5>
-                                <!-- appeloffre date-->
                                 <p>{{ appeloffre.datelimitesoumission| date }}</p>
-
-                                <p> <a class="table-link" [routerLink]="['/updateappeloffre',appeloffre.id]">
-                                    <span class="fa-stack" style="color: green;">
-                                      <i class="fa fa-square fa-stack-2x"></i>
-                                      <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                  </a>
-                                  <a class="table-link danger" style="color: red;" (click)="supprimerAppelOffre(appeloffre.id)">
-                                    <span class="fa-stack">
-                                      <i class="fa fa-square fa-stack-2x"></i>
-                                      <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                  </a></p>
-                            
+                                <div>
+                                    <a class="table-link" [routerLink]="['/updateappeloffre',appeloffre.id]">
+                                        <span class="fa-stack" style="color: green;">
+                                            <i class="fa fa-square fa-stack-2x"></i>
+                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    <a class="table-link danger" style="color: red;" (click)="supprimerAppelOffre(appeloffre.id)">
+                                        <span class="fa-stack">
+                                            <i class="fa fa-square fa-stack-2x"></i>
+                                            <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        
-                        
-                        <!-- appeloffre actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" [routerLink]="['/detailsAppelOffreAdmin', appeloffre.id]">Voir détails</a></div>
                         </div>
                     </div>
@@ -69,5 +61,26 @@
             </div>
         </div>
     </section>
+
+    <hr class="my-4">
+
+    <section *ngIf="!isLoading && entreprise?.users">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="text-center mb-4">Users of {{ entreprise?.name }}</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" *ngFor="let user of entreprise?.users">
+                    <div class="card user-card">
+                        <img [src]="user.img ? 'data:image/png;base64,' + user.img : 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'" class="card-img-top user-img" alt="User Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{user.prenom}} {{ user.name }}</h5>
+                            <p class="card-text">{{ user.email }}</p>
+                            <!-- <a href="#" class="btn btn-primary">View Profile</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 </body>
 </html>
