@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { offerApiURL, userofferApiURL,visitorofferApiURL } from '../config';
+import { offerApiURL, userofferApiURL,visitorofferApiURL,superadminofferApiURL } from '../config';
 import { AppelOffre } from '../model/appeloffre.model';
 import { Offre } from '../model/offre.model';
 import { Categorie } from '../model/categorie.model';
@@ -20,6 +20,33 @@ export class AppeloffreService {
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+  }
+  getAllCategoriesSuperadmin(): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(`${superadminofferApiURL}/categories`, { headers: this.getAuthHeaders() });
+  }
+
+  getAppelOffreCountByCategorieSuperadmin(categorieId: string): Observable<number> {
+    return this.http.get<number>(`${superadminofferApiURL}/categories/${categorieId}/appeloffres/count`, { headers: this.getAuthHeaders() });
+  }
+
+  addCategorySuperadmin(categorie: Categorie): Observable<Categorie> {
+    return this.http.post<Categorie>(`${superadminofferApiURL}/categories`, categorie, { headers: this.getAuthHeaders() });
+  }
+  searchCategoriesByNomSuperadmin(nomCategorie: string): Observable<Categorie[]> {
+    return this.http.get<Categorie[]>(`${superadminofferApiURL}/search/${nomCategorie}`, { headers: this.getAuthHeaders() });
+}
+
+  
+  updateCategorySuperadmin(id: string, categorie: Categorie): Observable<Categorie> {
+    return this.http.put<Categorie>(`${superadminofferApiURL}/categories/${id}`, categorie, { headers: this.getAuthHeaders() });
+  }
+
+  deleteCategorySuperadmin(id: string): Observable<void> {
+    return this.http.delete<void>(`${superadminofferApiURL}/categories/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  getCategoryByIdSuperadmin(id: string): Observable<Categorie> {
+    return this.http.get<Categorie>(`${superadminofferApiURL}/categories/${id}`, { headers: this.getAuthHeaders() });
   }
   getAllCategories(): Observable<Categorie[]> {
     return this.http.get<Categorie[]>(`${userofferApiURL}/categories`, { headers: this.getAuthHeaders() });

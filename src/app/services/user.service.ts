@@ -145,7 +145,7 @@ rejectJoinRequest(requestId: string): Observable<any> {
 }
 
 rejectCreationRequest(requestId: string): Observable<any> {
-    return this.http.post(`${authApiURL}/reject-request/${requestId}`, {});
+    return this.http.post(`${authApiURL}/rejectrequest/${requestId}`, {});
 }
 
 

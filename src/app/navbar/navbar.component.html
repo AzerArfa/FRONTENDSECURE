@@ -13,7 +13,7 @@
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="/listentreprises">Entreprises</a></li>
           <li class="nav-item"><a class="nav-link active" aria-current="page" href="/actionentreprise" *ngIf="isloggedIn">Action</a></li>
           <li class="nav-item" *ngIf="isSuperAdmin"><a class="nav-link" href="/users">Utilisateurs</a></li>
-
+          <li class="nav-item" *ngIf="isSuperAdmin"><a class="nav-link" href="/gestioncategories">Catégories</a></li>
         </ul>
         
         <form *ngIf="!isloggedIn" class="d-flex">

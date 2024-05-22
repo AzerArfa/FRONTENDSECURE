@@ -25,11 +25,13 @@ import { DemandecreationentrepriseComponent } from './demandecreationentreprise/
 import { DemanderejointentrepriseComponent } from './demanderejointentreprise/demanderejointentreprise.component';
 import { HomevisitorComponent } from './homevisitor/homevisitor.component';
 import { ListentreprisesComponent } from './listentreprises/listentreprises.component';
+import { GestioncategoriesComponent } from './gestioncategories/gestioncategories.component';
 
 
 
 const routes: Routes = [
   {path:"addOffre/:id",component:AddoffreComponent},
+  {path:"gestioncategories",component:GestioncategoriesComponent,canActivate: [SuperAdminGuard]},
   {path:"listentreprises",component:ListentreprisesComponent},
   {path:"demandecreationentreprise",component:DemandecreationentrepriseComponent,canActivate: [AuthGuard]},
   {path:"demanderejointentreprise",component:DemanderejointentrepriseComponent,canActivate: [AuthGuard]},

@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   isSuperAdmin!:boolean;
   creationRequests: DemandeAjoutEntreprise[] = [];
   joinRequests: DemandeRejoindreEntreprise[] = [];
+  userId!: string;
 
   
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService,private authService:AuthService,
@@ -44,12 +45,24 @@ export class ProfileComponent implements OnInit {
   approveCreation(requestId: string, userId: string) {
     this.userService.approveCreationRequest(requestId, userId).subscribe({
       next: (response) => {
-          console.log('Creation request approved successfully:', response);
+        this.toastr.success('Demande de création approuvée avec succès', "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
+          console.log('Demande de création approuvée avec succès:', response);
           this.loadCreationRequests();
           // Optionally refresh the list or update the UI
       },
       error: (error) => {
-          console.error('Failed to approve creation request:', error);
+        this.toastr.error("Échec de l'approbation de la demande de création", "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
+          console.error("Échec de l'approbation de la demande de création", error);
           const errorMessage = error.error.error || error.message;
           console.log('Error message from the server:', errorMessage);
           // Display an error message to the user
@@ -62,10 +75,23 @@ export class ProfileComponent implements OnInit {
 rejectCreation(requestId: string) {
     this.userService.rejectCreationRequest(requestId).subscribe({
         next: () => {console.log('Creation request rejected successfully.');
+        this.toastr.success('Demande de création rejetée avec succès', "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         this.loadCreationRequests();
         }
         ,
-        error: error => console.error('Failed to reject creation request:', error)
+        error: error =>{ console.error('Failed to reject creation request:', error);
+        this.toastr.error('Échec du rejet de la demande de création', "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
+      }
     });
 }
   approveJoin(requestId: string) {
@@ -73,8 +99,20 @@ rejectCreation(requestId: string) {
       next: response => {
           console.log('Join request approved:', response);
           this.loadJoinRequests();
+          this.toastr.success("Demande d'adhésion approuvée ", "Entreprise", {
+            timeOut: 5000,
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-right',
+          });
       },
       error: error => {
+        this.toastr.error("Échec de l'approbation de la demande d'adhésion", "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
           console.error('Failed to approve join request', error);
           console.log('Error response:', error.error.text); // Logging the error response body
       }
@@ -85,11 +123,24 @@ rejectCreation(requestId: string) {
   rejectJoin(requestId: string) {
     this.userService.rejectJoinRequest(requestId).subscribe({
       next: response => {
+        this.toastr.success("Demande d'adhésion rejetée avec succès", "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         console.log('Join request rejected');
         this.loadJoinRequests();
         // Optionally refresh the list of join requests or handle UI updates here
       },
-      error: err => console.error('Failed to reject join request', err)
+      error: err => {console.error('Failed to reject join request', err);
+      this.toastr.error("Échec du rejet de la demande d'adhésion", "Entreprise", {
+        timeOut: 5000,
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
+    }
     });
   }
   loadJoinRequests(): void {
@@ -169,11 +220,23 @@ rejectCreation(requestId: string) {
     let conf = confirm("Êtes-vous sûr de vouloir supprimer cette entreprise ?");
     if (conf) {
       this.userService.supprimerEntreprise(id).subscribe(() => {
+        this.toastr.success("Entreprise supprimée avec succés", "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         console.log('Entreprise deleted successfully');
-        window.location.reload(); // Reload the page after successful deletion
+        this.loadCurrentUser(this.userId);// Reload the page after successful deletion
       }, (error) => {
+        this.toastr.error("Erreur lors de la suppression de l'entreprise", "Entreprise", {
+          timeOut: 5000,
+          closeButton: true,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+        });
         console.warn('Error deleting entreprise:', error);
-        window.location.reload(); // Reload the page even if an error occurs
+        this.loadCurrentUser(this.userId); // Reload the page even if an error occurs
       });
     }
   }

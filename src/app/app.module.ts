@@ -38,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
+import { GestioncategoriesComponent } from './gestioncategories/gestioncategories.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import { ToastrModule } from 'ngx-toastr';
     DemandecreationentrepriseComponent,
     DemanderejointentrepriseComponent,
     HomevisitorComponent,
-    ListentreprisesComponent
+    ListentreprisesComponent,
+    GestioncategoriesComponent
     
   ],
   imports: [ToastrModule.forRoot({
