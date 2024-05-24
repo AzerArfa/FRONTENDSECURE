@@ -140,3 +140,8 @@ body {
 .btn-primary:hover {
   background-color: #45a049;
 }
+.user-img {
+  width: 350px;  /* Fixed width for all user images */
+  height: 300px; /* Fixed height for all user images */
+  object-fit: cover; /* Ensures the image covers the space without distorting aspect ratio */
+}
